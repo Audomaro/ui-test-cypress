@@ -8,10 +8,11 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "cypress": "13.6"
-  },
   "engines": {
-    "node": " >=20.12.2"
+    "node": " >=18.20.2"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.6",
+    "dotenv": "^16.4.5"
   }
 }

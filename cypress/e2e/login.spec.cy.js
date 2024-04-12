@@ -1,16 +1,19 @@
 describe('Prueba de inicio de sesión', () => {
+
+  beforeEach(() => {
+    cy.goToSite();
+  });
+
   it('Inicia sesión con credenciales válidas', () => {
-    cy.visit('http://mexcdb.nld.ei/seguridad-app');
-
-    cy.get('.dx-placeholder[data-dx_placeholder="Usuario"]')
+    cy.get('[data-dx_placeholder="Usuario"]')
       .parent('.dx-texteditor-input-container')
       .find('.dx-texteditor-input')
-      .type('nld-audomarog');
+      .type(Cypress.env('user'));
 
-    cy.get('.dx-placeholder[data-dx_placeholder="Password"]')
+    cy.get('[data-dx_placeholder="Password"]')
       .parent('.dx-texteditor-input-container')
       .find('.dx-texteditor-input')
-      .type('TU PASSWORD');
+      .type(Cypress.env('pass'));
 
     cy.contains('.dx-button-content', 'Login')
       .click();
@@ -19,23 +22,20 @@ describe('Prueba de inicio de sesión', () => {
   });
 
   it('Inicia sesión con credenciales inválidas', () => {
-    cy.visit('http://mexcdb.nld.ei/seguridad-app');
-
-    cy.get('.dx-placeholder[data-dx_placeholder="Usuario"]')
+    cy.get('[data-dx_placeholder="Usuario"]')
       .parent('.dx-texteditor-input-container')
       .find('.dx-texteditor-input')
-      .type('nld-audomarog');
+      .type('FAKE');
 
-    cy.get('.dx-placeholder[data-dx_placeholder="Password"]')
+    cy.get('[data-dx_placeholder="Password"]')
       .parent('.dx-texteditor-input-container')
       .find('.dx-texteditor-input')
-      .type('INVALIDO');
+      .type('FAKE');
 
     cy.contains('.dx-button-content', 'Login')
       .click();
 
-    cy
-      .get('.dx-toast-error')
+    cy.get('.dx-toast-message')
       .should('contain', 'Username or password incorrect');
   });
 });

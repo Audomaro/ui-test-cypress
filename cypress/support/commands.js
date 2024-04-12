@@ -23,3 +23,25 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('goToSite', () => {
+  cy.viewport(1300, 768);
+  cy.visit('https://lrd-appsqa01.lrd.ei/seguridad-app');
+})
+
+Cypress.Commands.add('login', (username, password) => {
+  cy.goToSite();
+
+  cy.get('[data-dx_placeholder="Usuario"]')
+    .parent('.dx-texteditor-input-container')
+    .find('.dx-texteditor-input')
+    .type(username);
+
+  cy.get('[data-dx_placeholder="Password"]')
+    .parent('.dx-texteditor-input-container')
+    .find('.dx-texteditor-input')
+    .type(password);
+
+  cy.contains('.dx-button-content', 'Login')
+    .click();
+});
